@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "52237207926",
+    "project_id": "samaritan-74d6d",
+    "storage_bucket": "samaritan-74d6d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52237207926:android:5a6a295d79a554a8e1d257",
+        "android_client_info": {
+          "package_name": "com.example.samaritan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0SyXglTWpJxxSMYeFU7qyFLKgFe_wy68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52237207926:android:7e1a845ac1a46dd1e1d257",
+        "android_client_info": {
+          "package_name": "com.mckintoye.samaritan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0SyXglTWpJxxSMYeFU7qyFLKgFe_wy68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
