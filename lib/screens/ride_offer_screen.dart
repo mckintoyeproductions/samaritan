@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/ride_request.dart';
 import '../services/ride_service.dart';
+import '../widgets/ride_top_switcher.dart';
 
 /// Offer a Ride: shows list of current OPEN requests. Tap → confirm → status becomes matched.
 class RideOfferScreen extends StatelessWidget {
@@ -130,111 +131,90 @@ class RideOfferScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final textTheme = Theme.of(context).textTheme;
 
+
+// Inside build() before StreamBuilder:
+    Container(
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Text('“Thanks for offering to help. Compassion drives community.”', textAlign: TextAlign.center),
+    );
+    const SizedBox(height: 8);
+
     return Scaffold(
+
       appBar: AppBar(
+
         title: const Text('Offer a Ride'),
         leading: const Icon(Icons.volunteer_activism_outlined),
       ),
-      body: StreamBuilder<List<RideRequest>>(
-        stream: RideService.streamOpenRequests(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            final err = snapshot.error.toString();
-            final isPerm = err.contains('permission-denied');
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  isPerm
-                      ? 'Thank you for your interest to offer a ride for others. The core trait of a Good Samaritan!'
-                      ' \nPlease signup/login to get authenticated and get you on your way.'
-                      : 'Error: $err',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          }
 
-          final items = snapshot.data ?? [];
-          if (items.isEmpty) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Text('No open ride requests yet.'),
-              ),
-            );
-          }
 
-          return ListView.separated(
-            padding: const EdgeInsets.all(16),
-            itemCount: items.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, i) {
-              final req = items[i];
-              return Card(
-                elevation: 1.5,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  leading: CircleAvatar(
-                    child: const Icon(Icons.directions_car_outlined),
-                  ),
-                  title: Text(
-                    req.destinationName,
-                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Wrap(
-                          spacing: 6,
-                          runSpacing: 6,
-                          children: [
-                            Chip(
-                              label: Text(req.rideDate.toLocal().toString().split(' ').first),
-                              avatar: const Icon(Icons.calendar_today_outlined, size: 18),
-                              visualDensity: VisualDensity.compact,
-                            ),
-                            Chip(
-                              label: Text(req.rideTime),
-                              avatar: const Icon(Icons.schedule_outlined, size: 18),
-                              visualDensity: VisualDensity.compact,
-                            ),
-                            _statusChip(context, req.status),
-                          ],
-                        ),
-                        if ((req.note ?? '').isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.notes_outlined, size: 18),
-                                const SizedBox(width: 6),
-                                Expanded(child: Text(req.note!)),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                  trailing: FilledButton(
-                    onPressed: () => _confirmMatch(context, req),
-                    child: const Text('Give Ride'),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Container(
+            // In RideOfferScreen build(): body: Column(children:[ ... ])
+
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceVariant,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Text(
+              '“Thanks for offering to help. Compassion drives community.”',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          const RideTopSwitcher(isOffer: true),
+
+          // Expand to fill remaining space with the list/loader
+          Expanded(
+            child: StreamBuilder<List<RideRequest>>(
+              stream: RideService.streamOpenRequests(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No open ride requests yet.'));
+                }
+
+                final requests = snapshot.data!;
+                return ListView.builder(
+                  itemCount: requests.length,
+                  itemBuilder: (context, i) {
+                    final r = requests[i];
+                    return ListTile(
+                      leading: const Icon(Icons.directions_car),
+                      title: Text(r.destinationName),
+                      subtitle: Text('${r.rideDate.toLocal()} • ${r.rideTime}'),
+                      trailing: ElevatedButton(
+                        onPressed: () async {
+                          await RideService.matchRequest(requestId: r.id);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Matched ride request ${r.id}')),
+                          );
+                        },
+                        child: const Text('Give Ride'),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
+
     );
   }
 }

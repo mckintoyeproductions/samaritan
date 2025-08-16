@@ -16,10 +16,15 @@ class RideService {
     required DateTime rideDate,
     required String rideTime,
     String? note,
+
+    // NEW (optional, for profile autofill)
+    String? pickupAddress,
+    double? pickupLat,
+    double? pickupLng,
   }) async {
-    final uid = _auth.currentUser?.uid;
+    final user = _auth.currentUser;
     final doc = await _requests.add({
-      'userId': uid,
+      'userId': user?.uid,
       'destinationId': destinationId,
       'destinationName': destinationName,
       'rideDate': Timestamp.fromDate(DateTime(rideDate.year, rideDate.month, rideDate.day)),
@@ -27,7 +32,10 @@ class RideService {
       'status': 'open',
       'matchedOfferId': null,
       'createdAt': Timestamp.now(),
-      'note': note,
+      if (pickupAddress != null) 'pickupAddress': pickupAddress,
+      if (pickupLat != null) 'pickupLat': pickupLat,
+      if (pickupLng != null) 'pickupLng': pickupLng,
+      if (note != null && note.isNotEmpty) 'note': note,
     });
     return doc.id;
   }
@@ -36,11 +44,9 @@ class RideService {
   static Stream<List<RideRequest>> streamOpenRequests() {
     return _requests
         .where('status', isEqualTo: 'open')
-    // no orderBy → avoids composite index requirement on web
         .snapshots()
         .map((snap) {
       final list = snap.docs.map((d) => RideRequest.fromDoc(d)).toList();
-      // sort in Dart by date then time (string)
       list.sort((a, b) {
         final d = a.rideDate.compareTo(b.rideDate);
         if (d != 0) return d;
@@ -50,12 +56,8 @@ class RideService {
     });
   }
 
-
   /// Claim (match) an open ride request by offer/driver.
-  static Future<void> matchRequest({
-    required String requestId,
-    String? driverId,
-  }) async {
+  static Future<void> matchRequest({ required String requestId, String? driverId }) async {
     await _requests.doc(requestId).update({
       'status': 'matched',
       if (driverId != null) 'matchedOfferId': driverId,

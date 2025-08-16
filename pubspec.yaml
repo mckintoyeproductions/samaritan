@@ -39,6 +39,11 @@ dependencies:
   animated_text_kit: ^4.2.2
   video_player: ^2.10.0
   url_launcher: ^6.2.4
+  
+  google_maps_flutter: ^2.7.0
+    # For web support (auto-registered):
+  google_maps_flutter_web: ^0.5.7
+
 
 
   # Firebase core is required
