@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../models/ride_destination.dart';
+import '../models/ride_destination_model.dart';
 import '../services/ride_service.dart';
 import '../widgets/destination_picker.dart';
 import '../widgets/ride_top_switcher.dart';

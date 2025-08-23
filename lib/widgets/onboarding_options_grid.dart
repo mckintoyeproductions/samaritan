@@ -11,29 +11,8 @@ class OnboardingOptionsGrid extends StatelessWidget {
       {
         'icon': Icons.handshake_outlined,
         'label': 'Lend a Hand',
-        'route': '/give/help',
+        'route': '/help/offer',
 
-      },
-      {
-        'icon': Icons.volunteer_activism_outlined,
-        'label': 'Ask for Help',
-        'route': '/ask/help',
-      },
-      {
-        'icon': Icons.self_improvement_outlined,
-        'label': 'Pray For Me',
-        'route': '/pray/for',
-      },
-      {
-        'icon': Icons.psychology_alt_outlined,
-        'label': 'Let’s Pray',
-        'route': '/lets/pray',
-      },
-      {
-        'icon': Icons.local_taxi_outlined,
-        'label': 'Offer Ride',
-        'route': '/ride/offer',
-        'onTap': () => context.push('/ride/offer'),
       },
       {
         'icon': Icons.directions_car_filled_outlined,
@@ -42,23 +21,44 @@ class OnboardingOptionsGrid extends StatelessWidget {
         'onTap': () => context.push('/ride/request'),
       },
       {
+        'icon': Icons.self_improvement_outlined,
+        'label': 'Pray For Me',
+        'route': '/pray/request',
+      },
+      {
         'icon': Icons.menu_book_outlined,
         'label': 'Testimony Feed',
         'route': '/testimony',
       },
       {
+        'icon': Icons.volunteer_activism_outlined,
+        'label': 'Ask for Help',
+        'route': '/help/request',
+      },
+      {
+        'icon': Icons.local_taxi_outlined,
+        'label': 'Offer Ride',
+        'route': '/ride/offer',
+        'onTap': () => context.push('/ride/offer'),
+      },
+      {
+        'icon': Icons.psychology_alt_outlined,
+        'label': 'Let’s Pray',
+        'route': '/pray/offer',
+      },
+      {
         'icon': Icons.explore_outlined,
         'label': 'Just Browsing',
-        'route': '/about/samaria',
+        'route': '/about',
       },
     ];
 
     return GridView.count(
-      crossAxisCount: 2,
+      crossAxisCount: 4,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
+      crossAxisSpacing: 50,
+      mainAxisSpacing: 50,
       padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 40),
       childAspectRatio: 1.0, // Adjusted for more compact box
       children: options

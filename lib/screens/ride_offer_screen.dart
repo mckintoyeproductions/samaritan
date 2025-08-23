@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../models/ride_request.dart';
+import '../models/ride_request_model.dart';
 import '../services/ride_service.dart';
 import '../widgets/ride_top_switcher.dart';
 

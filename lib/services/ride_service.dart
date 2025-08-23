@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/ride_request.dart';
+import '../models/ride_request_model.dart';
 
 class RideService {
   static final _db = FirebaseFirestore.instance;

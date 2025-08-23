@@ -1,22 +1,43 @@
-class UserProfile {
-  final String uid;
-  final String name;
-  final String role; // e.g., "volunteer", "rider", "prayer-warrior"
-  final String location;
+class UserProfileModel {
+  final String? uid;
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String? profileImageUrl;
+  final String? location;
+  final String? kycStatus; // e.g., 'pending', 'verified'
 
-  UserProfile({required this.uid, required this.name, required this.role, required this.location});
+  UserProfileModel({
+    this.uid,
+    this.name,
+    this.email,
+    this.phone,
+    this.profileImageUrl,
+    this.location,
+    this.kycStatus,
+  });
 
-  Map<String, dynamic> toMap() => {
-    'uid': uid,
-    'name': name,
-    'role': role,
-    'location': location,
-  };
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'profileImageUrl': profileImageUrl,
+      'location': location,
+      'kycStatus': kycStatus,
+    };
+  }
 
-  factory UserProfile.fromMap(Map<String, dynamic> map) => UserProfile(
-    uid: map['uid'],
-    name: map['name'],
-    role: map['role'],
-    location: map['location'],
-  );
+  factory UserProfileModel.fromMap(Map<String, dynamic> map) {
+    return UserProfileModel(
+      uid: map['uid'],
+      name: map['name'],
+      email: map['email'],
+      phone: map['phone'],
+      profileImageUrl: map['profileImageUrl'],
+      location: map['location'],
+      kycStatus: map['kycStatus'],
+    );
+  }
 }

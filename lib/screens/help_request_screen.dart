@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../widgets/help_request_daily_declaration_widget.dart';
 
-class AskForHelpScreen extends StatefulWidget {
-  const AskForHelpScreen({super.key});
+class HelpRequestScreen extends StatefulWidget {
+  const HelpRequestScreen({super.key});
 
   @override
-  State<AskForHelpScreen> createState() => _AskForHelpScreenState();
+  State<HelpRequestScreen> createState() => _HelpRequestScreenState();
 }
 
-class _AskForHelpScreenState extends State<AskForHelpScreen> {
+class _HelpRequestScreenState extends State<HelpRequestScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   DateTime? _selectedDate;

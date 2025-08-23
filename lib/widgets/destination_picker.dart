@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/ride_destination.dart';
+import '../models/ride_destination_model.dart';
 
 class DestinationPicker extends StatelessWidget {
   final List<RideDestination> destinations;

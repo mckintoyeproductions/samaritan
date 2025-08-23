@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Testimony {
+class TestimonyModel {
   final String id;
   final String title;
   final String description;
   final String? name;
   final DateTime submitDate;
 
-  Testimony({
+  TestimonyModel({
     required this.id,
     required this.title,
     required this.description,
@@ -15,8 +15,8 @@ class Testimony {
     required this.submitDate,
   });
 
-  factory Testimony.fromMap(Map<String, dynamic> data, String documentId) {
-    return Testimony(
+  factory TestimonyModel.fromMap(Map<String, dynamic> data, String documentId) {
+    return TestimonyModel(
       id: documentId,
       title: data['title'] ?? '',
       description: data['description'] ?? '',

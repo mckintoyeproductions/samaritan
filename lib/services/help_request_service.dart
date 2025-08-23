@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/help_request.dart';
+import '../models/help_request_model.dart';
 
 class HelpRequestService {
   final _collection = FirebaseFirestore.instance.collection('help_requests');

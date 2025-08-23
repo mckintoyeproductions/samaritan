@@ -1,90 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screens/onboarding_welcome_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/citizenship_creed_screen.dart';
+import 'screens/about_samaria_screen.dart';
 import 'screens/auth_entry_screen.dart';
-import 'screens/onboarding_complete_screen.dart';
-
-import 'screens/login_screen.dart';
-import 'screens/signup_screen.dart';
+import 'screens/availability_slot_screen.dart';
+import 'screens/citizenship_creed_screen.dart';
 import 'screens/help_offer_screen.dart';
 import 'screens/help_request_screen.dart';
-import 'screens/pray_request_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/onboarding_complete_screen.dart';
+import 'screens/onboarding_welcome_screen.dart';
 import 'screens/pray_offer_screen.dart';
-import 'screens/ride_offer_coming_soon_popup_screen.dart';
-import 'screens/ride_request_coming_soon_popup_screen.dart';
-import 'screens/testimony_screen.dart';
-import 'screens/about_samaria_screen.dart';
-import 'screens/ride_request_screen.dart';
+import 'screens/pray_request_screen.dart';
+import 'screens/read_testimonies_screen.dart';
 import 'screens/ride_offer_screen.dart';
-// import protected screens like ride_offer_screen.dart when ready
+import 'screens/ride_request_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/testimony_screen.dart';
+import 'screens/settings_screen.dart';
 
-final GoRouter appRouter = GoRouter(
+final GoRouter router = GoRouter(
+  initialLocation: '/onboarding-welcome',
   routes: [
     GoRoute(
-      path: '/',
-      builder: (context, state) => const OnboardingWelcomeScreen(),
-    ),
-
-// add:
-    GoRoute(
-      path: '/ride/request',
-      builder: (context, state) => const RideRequestScreen(),
-    ),
-    GoRoute(
-      path: '/ride/offer',
-      builder: (context, state) => const RideOfferScreen(),
-    ),
-
-    GoRoute(
       path: '/home',
+      name: 'home',
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: '/onboarding/creed',
-      builder: (context, state) => const CitizenshipCreedScreen(),
+      path: '/settings',
+      name: 'settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
-      path: '/onboarding/auth',
-      builder: (context, state) => const AuthEntryScreen(),
-    ),
-    GoRoute(
-      path: '/onboarding/complete',
-      builder: (context, state) => const OnboardingCompleteScreen(),
+      path: '/about',
+      name: 'aboutSamaria',
+      builder: (context, state) => const AboutSamariaScreen(),
     ),
     GoRoute(
       path: '/login',
+      name: 'login',
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
       path: '/signup',
+      name: 'signup',
       builder: (context, state) => const SignupScreen(),
     ),
     GoRoute(
-      path: '/give/help',
-      builder: (context, state) => const LendAHandScreen(),
+      path: '/auth-entry',
+      name: 'authEntry',
+      builder: (context, state) => const AuthEntryScreen(),
     ),
     GoRoute(
-      path: '/ask/help',
-      builder: (context, state) => const AskForHelpScreen(),
+      path: '/onboarding-complete',
+      name: 'onboardingComplete',
+      builder: (context, state) => const OnboardingCompleteScreen(),
     ),
     GoRoute(
-      path: '/pray/for',
-      builder: (context, state) => const PrayForMeScreen(),
+      path: '/onboarding-welcome',
+      name: 'onboardingWelcome',
+      builder: (context, state) => const OnboardingWelcomeScreen(),
     ),
     GoRoute(
-      path: '/lets/pray',
-      builder: (context, state) => const LetsPrayScreen(),
+      path: '/creed',
+      name: 'citizenshipCreed',
+      builder: (context, state) => const CitizenshipCreedScreen(),
     ),
     GoRoute(
-      path: '/ride/offer',
-      builder: (context, state) => const OfferRideComingSoonPopupScreen(),
+      path: '/pray/request',
+      name: 'prayRequest',
+      builder: (context, state) => const PrayRequestScreen(),
     ),
     GoRoute(
-      path: '/ride/request',
-      builder: (context, state) => const AskForRideComingSoonPopupScreen(),
+      path: '/pray/offer',
+      name: 'prayOffer',
+      builder: (context, state) => const PrayOfferScreen(),
     ),
     GoRoute(
       path: '/testimony',
@@ -92,30 +84,34 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const TestimonyScreen(),
     ),
     GoRoute(
-      path: '/about/samaria',
-      builder: (context, state) => const AboutSamariaScreen(),
+      path: '/testimonies',
+      name: 'readTestimonies',
+      builder: (context, state) => const ReadTestimoniesScreen(),
     ),
     GoRoute(
-      path: '/auth',
-      builder: (context, state) => const AuthEntryScreen(),
+      path: '/help/request',
+      name: 'helpRequest',
+      builder: (context, state) => const HelpRequestScreen(),
     ),
-
-
-
-
+    GoRoute(
+      path: '/help/offer',
+      name: 'helpOffer',
+      builder: (context, state) => const HelpOfferScreen(),
+    ),
+    GoRoute(
+      path: '/ride/request',
+      name: 'rideRequest',
+      builder: (context, state) => const RideRequestScreen(),
+    ),
+    GoRoute(
+      path: '/ride/offer',
+      name: 'rideOffer',
+      builder: (context, state) => const RideOfferScreen(),
+    ),
+    GoRoute(
+      path: '/availability',
+      name: 'availability',
+      builder: (context, state) => const AvailabilitySlotScreen(),
+    ),
   ],
 );
-
-// For dev/testing only
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('$title\nComing Soon!', textAlign: TextAlign.center)),
-    );
-  }
-}

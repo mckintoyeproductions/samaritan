@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../widgets/help_offer_daily_declaration_widget.dart';
 
-class LendAHandScreen extends StatefulWidget {
-  const LendAHandScreen({super.key});
+class HelpOfferScreen extends StatefulWidget {
+  const HelpOfferScreen({super.key});
 
   @override
-  State<LendAHandScreen> createState() => _LendAHandScreenState();
+  State<HelpOfferScreen> createState() => _HelpOfferScreenState();
 }
 
-class _LendAHandScreenState extends State<LendAHandScreen> {
+class _HelpOfferScreenState extends State<HelpOfferScreen> {
   final List<String> dates = List.generate(14, (index) {
     final now = DateTime.now().add(Duration(days: index));
     return '${weekdays[now.weekday % 7]}, ${months[now.month - 1]} ${now.day.toString().padLeft(2, '0')}';

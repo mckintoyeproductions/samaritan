@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models/help_request.dart';
+import '../../models/help_request_model.dart';
 
 class AskForHelpPreviewList extends StatelessWidget {
   final List<HelpRequest> helpRequests;
@@ -43,7 +43,7 @@ class AskForHelpPreviewList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    request.description.split('\n').first,
+                    request.details.split('\n').first,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -52,7 +52,7 @@ class AskForHelpPreviewList extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'When: ${request.timePreference}',
+                    'When: ${request.deadline}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const Spacer(),

@@ -3,7 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../models/ride_destination.dart';
+import '../models/ride_destination_model.dart';
 
 class GoogleCampusMapPicker extends StatefulWidget {
   final List<RideDestination> destinations;

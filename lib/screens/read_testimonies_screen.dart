@@ -23,7 +23,7 @@ class ReadTestimoniesScreen extends StatelessWidget {
           }
 
           final testimonies = snapshot.data!.docs.map((doc) {
-            return Testimony.fromMap(doc.data()! as Map<String, dynamic>, doc.id);
+            return TestimonyModel.fromMap(doc.data()! as Map<String, dynamic>, doc.id);
           }).toList();
 
           return ListView.builder(
